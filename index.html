@@ -8,15 +8,26 @@
     <link rel="icon" href="">
     <link rel="stylesheet" href="./css/normalize.css">
     <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/chart.css">
     <link rel="stylesheet" media="screen and (max-width:900px)" href="./css/mobile.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.2/chart.min.js" integrity="sha512-tMabqarPtykgDtdtSqCL3uLVM0gS1ZkUAVhRFu1vSEFgvB73niFQWJuvviDyBGBH22Lcau4rHB5p2K2T0Xvr6Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="./scripts/main.js" type="module" defer></script>
-
     <title>Covid-Data</title>
 </head>
 <body>
 <header>
-    Nav
+    <div class="regions-buttons-div">
+        <!--                        <button class="north-america" data-region="north_americas">North America</button>-->
+        <!--                        <button class="south-america" data-region="south americas">South America</button>-->
+        <button class="americas" data-region="americas">Americas</button>
+        <button class="europe" data-region="europe">Europe</button>
+        <button class="africa" data-region="africa">Africa</button>
+        <button class="asia" data-region="asia">Asia</button>
+        <button class="oceania" data-region="oceania">Oceania</button>
+        <!--                        <button class="antartica" data-region="antartica">Antartica</button>-->
+        <button class="world" data-region="world">World</button>
+    </div>
 </header>
 <section id="main">
     <div class="main-">
@@ -24,23 +35,19 @@
         <div class="map-div">
             map
         </div>
+        <div class="chart-div">
+            <canvas id="chart"></canvas>
+        </div>
         <div class="statistic-div">
             graph
         </div>
+
+
+
         <div class="ui-div">
             <div class="buttons-div">
                 <div class="data-buttons">
-                    <div class="regions-buttons-div">
-<!--                        <button class="north-america" data-region="north_americas">North America</button>-->
-<!--                        <button class="south-america" data-region="south americas">South America</button>-->
-                        <button class="americas" data-region="americas">Americas</button>
-                        <button class="europe" data-region="europe">Europe</button>
-                        <button class="africa" data-region="africa">Africa</button>
-                        <button class="asia" data-region="asia">Asia</button>
-                        <button class="oceania" data-region="oceania">Oceania</button>
-<!--                        <button class="antartica" data-region="antartica">Antartica</button>-->
-                        <button class="world" data-region="world">World</button>
-                    </div>
+
                 </div>
             </div>
         </div>

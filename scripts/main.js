@@ -15,8 +15,6 @@ async function getContriesFromRegion(region) {
             //     Accept: "application/json",
             // }
         ]);
-        // arrangeCountries(data);
-        // console.log('ggggggg',data)
         return data
     }
     catch(error) {
@@ -27,7 +25,6 @@ async function getContriesFromRegion(region) {
 function arrangeCountries(data) {
     let listOfCountries = []
     data.data.forEach(countrie => {
-
         // console.log(countrie.name.common, countrie.cca2)
         if(countrie.cca2!=='XK') listOfCountries.push(countrie.cca2)
     })
@@ -36,26 +33,22 @@ function arrangeCountries(data) {
     // getCovidDataCountriesPerRegion(listOfCountries)}
 }
 async function getCovidDataCountriesPerRegion(region) {
-
         let result = []
         region.forEach(countrie => {
             result.push(getCovidDataPerCounrie(countrie))
         })
-        result = await Promise.all(result)
-
+        result = await Promise.all(result)  // maybe fix
         regionsList = result
-        // console.log('redult', typeof result)
         return result
-        // const countrieData =  await  getCovidDataPerCounrie('AF')
-        // console.log('result',result[0])
 
 }
+//
+// const results = await Promise.all(covidArr.map((p) => p.catch((e) => e)));
+// const validResults = results.filter((result) => !(result instanceof Error));
 
 async function getCovidDataPerCounrie(countrie) {
     try {
         const data =  await axios.get(PROXIE_URL + API2_URL + countrie);
-        // console.log('dddd', data.data.data)
-        // arrangeData(data.data.data)
         return data
     } catch (error) {
         console.log(error);
@@ -76,7 +69,8 @@ function arrangeData(data){
 //     console.log('ee', regionsList[1].data.data.latest_data)
 // })
 
-const regionsButtons = document.querySelector('.regions-buttons-div')
+const regionsButtons = document.querySelector('.regions-buttons-div');
+const dataButtons = document.querySelector('.data-buttons');
 
 regionsButtons.addEventListener('click',(event)=> {
         let region = event.target.dataset.region
@@ -85,8 +79,8 @@ regionsButtons.addEventListener('click',(event)=> {
             .then(listOfCountries => getCovidDataCountriesPerRegion(listOfCountries))
             .then(result => arrangeData(result)).then(() => {
              printData(dataCollected)
-
             // console.log('ee', regionsList[1].data.data.latest_data)
         })
     }
 )
+
