@@ -1,4 +1,4 @@
-import {printData} from "./graph.js";
+import {createChart, printData, removeData} from "./graph.js";
 
 const PROXIE_URL = 'https://intense-mesa-62220.herokuapp.com/'
 const API1_URL = 'https://restcountries.herokuapp.com/api/v1/region/'
@@ -78,6 +78,7 @@ regionsButtons.addEventListener('click',(event)=> {
             .then(data => arrangeCountries(data))
             .then(listOfCountries => getCovidDataCountriesPerRegion(listOfCountries))
             .then(result => arrangeData(result)).then(() => {
+             createChart()
              printData(dataCollected)
             // console.log('ee', regionsList[1].data.data.latest_data)
         })

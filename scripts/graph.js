@@ -1,11 +1,12 @@
 // import {dataCollected} from "./main.js";
-const myChart = document.querySelector('#chart').getContext('2d');
+const myChart = document.getElementById('chart').getContext('2d');
 let dataCart = []
 let dataChartNames = []
 let dataChartConfirmed = [];
 let dataChartCritical = [];
 let dataChartRecovered = [];
 let dataChartDeaths = [];
+
 
 //
 // Chart.defaults.global.defaultFontFamily='Lato';
@@ -72,40 +73,49 @@ const config = {
         },
     },
 };
-let ChartCustom = new Chart (myChart,config)
 
-  function createChart() {
-    ChartCustom.destroy()
-    ChartCustom = new Chart(myChart, {
-        type: "bar",
-        data: [],
-        options: {
-            backgroundColor: ['#003f5c', '#58508d', '#bc5090', '#ff6361', '#ffa600',],
-            plugins: {
-                title: {
-                    display: true,
-                    text: "",
-                    font: {size: 25},
-                },
-            },
-            scales: {
-                x: {
-                    stacked: false,
-                    beginAtZero: true,
-                    ticks: {
-                        autoSkip: false,
-                    },
-                },
-            },
-        },
+let ChartCustom
+console.log('dd',ChartCustom)
+ export function createChart() {
+     if (ChartCustom) ChartCustom.destroy()
 
-    })
-}
+         ChartCustom = new Chart(myChart,
+                 {
+                 type: "bar",
+                 data: [],
+                 options: {
+                     backgroundColor: ['#003f5c', '#58508d', '#bc5090', '#ff6361', '#ffa600',],
+                     plugins: {
+                         title: {
+                             display: true,
+                             text: "",
+                             font: {size: 25},
+                         },
+                     },
+                     scales: {
+                         x: {
+                             stacked: false,
+                             beginAtZero: true,
+                             ticks: {
+                                 autoSkip: false,
+                             },
+                         },
+                     },
+                 },
+             })
 
+
+
+
+
+ }
 export function printData(data) {
 
-    createChart()
-    console.log(data)
+    dataChartNames=[];
+    dataChartConfirmed=[];
+    dataChartCritical=[];
+    dataChartRecovered=[];
+    dataChartDeaths=[];
     data.forEach(country=>{
         dataChartNames.push(country.data.data.name)
         dataChartConfirmed.push(country.data.data.latest_data.confirmed)
@@ -120,21 +130,25 @@ export function printData(data) {
     // console.log(dataChartNames)
     //     ChartCustom.update();
     // return dataCart=data
-     removeData(ChartCustom)
+
+    // removeData()
+
     addData(ChartCustom, dataChartNames, dataChartConfirmed)
 }
-function removeData(chart) {
-    chart.data.labels=[];
-    // chart.data.datasets.forEach((dataset) => {
-    //     dataset.data.pop();
-    // });
-    chart.data.datasets = []
 
-    chart.update();
+export function removeData() {
+    ChartCustom.destroy()
+    // chart.data.labels=[];
+    // // chart.data.datasets.forEach((dataset) => {
+    // //     dataset.data.pop();
+    // // });
+    // chart.data.datasets = []
+    // chart.update();
+
+
 }
-
-
 function addData(chart, names, data) {
+
     console.log(names)
     chart.data.labels=names;
     chart.data.label=names
@@ -146,7 +160,9 @@ function addData(chart, names, data) {
     // });
     chart.data.datasets.push({data})
     // chart.data.datasets = data
+    // removeData(ChartCustom)
     chart.update();
+
 }
 
 //
