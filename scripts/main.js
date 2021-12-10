@@ -1,21 +1,30 @@
-import {createChart, printData, removeData} from "./graph.js";
+import {
+    ChartCustom, createChart, printData, removeData, addData, dataChartRecovered,
+    dataChartNames, dataChartDeaths, dataChartCritical, dataChartConfirmed, updateCategoryGraph,changeGraphType
+} from "./graph.js";
 
 const PROXIE_URL = 'https://intense-mesa-62220.herokuapp.com/'
 const API1_URL = 'https://restcountries.herokuapp.com/api/v1/region/'
 const API2_URL = 'https://corona-api.com/countries/'
+export const currentDate = "("+new Date().toDateString()+")"
+export const categoryButtonsDiv = document.querySelector('.category-buttons-div')
 
+const dateObject = document.querySelector('.date');
+dateObject.textContent = currentDate
+
+export let region =''
 let regionsList = []
 export let dataCollected = []
 
 async function getContriesFromRegion(region) {
     try {
-        const data = await axios.get(PROXIE_URL+API1_URL+region,[
+        return await axios.get(PROXIE_URL+API1_URL+region,[
             // {
             //     headers:"Access-Control-Allow-Origin",
             //     Accept: "application/json",
             // }
         ]);
-        return data
+
     }
     catch(error) {
         console.log(error);
@@ -25,12 +34,9 @@ async function getContriesFromRegion(region) {
 function arrangeCountries(data) {
     let listOfCountries = []
     data.data.forEach(countrie => {
-        // console.log(countrie.name.common, countrie.cca2)
         if(countrie.cca2!=='XK') listOfCountries.push(countrie.cca2)
     })
     return listOfCountries
-    // listOfCountries = await Promise.all(listOfCountries)
-    // getCovidDataCountriesPerRegion(listOfCountries)}
 }
 async function getCovidDataCountriesPerRegion(region) {
         let result = []
@@ -42,14 +48,12 @@ async function getCovidDataCountriesPerRegion(region) {
         return result
 
 }
-//
 // const results = await Promise.all(covidArr.map((p) => p.catch((e) => e)));
 // const validResults = results.filter((result) => !(result instanceof Error));
 
 async function getCovidDataPerCounrie(countrie) {
     try {
-        const data =  await axios.get(PROXIE_URL + API2_URL + countrie);
-        return data
+        return  await axios.get(PROXIE_URL + API2_URL + countrie);
     } catch (error) {
         console.log(error);
     }
@@ -57,31 +61,66 @@ async function getCovidDataPerCounrie(countrie) {
 
 function arrangeData(data){
     dataCollected= data
-    // console.log('datatada',data)
-
 }
 
-// getContriesFromRegion(region)
-//     .then(data=>arrangeCountries(data))
-//     .then(listOfCountries=>getCovidDataCountriesPerRegion(listOfCountries))
-//     .then(result=>arrangeData(result)).then(()=>{
-//     console.log('test',regionsList[0])
-//     console.log('ee', regionsList[1].data.data.latest_data)
-// })
-
 const regionsButtons = document.querySelector('.regions-buttons-div');
-const dataButtons = document.querySelector('.data-buttons');
+export const dataButtons = document.querySelector('.data-buttons');
+export const worldMap = document.querySelector('.map-div');
+export const chartTypeButtonsDiv = document.querySelector('.chart-type-buttons-div');
+
+// export const categoryButtonsDiv = document.querySelector('.category-buttons-div')
+
 
 regionsButtons.addEventListener('click',(event)=> {
-        let region = event.target.dataset.region
+         region = event.target.dataset.region
         getContriesFromRegion(region)
             .then(data => arrangeCountries(data))
             .then(listOfCountries => getCovidDataCountriesPerRegion(listOfCountries))
             .then(result => arrangeData(result)).then(() => {
              createChart()
+            hideMap()
+            showCategoryButtons()
              printData(dataCollected)
+            console.log(dataCollected)
             // console.log('ee', regionsList[1].data.data.latest_data)
         })
     }
 )
 
+dataButtons.addEventListener('click',(event)=>{
+    console.log(event.target.dataset.button)
+
+})
+
+
+categoryButtonsDiv.addEventListener('click',(event)=>{
+    let data = event.target.dataset.button
+    let label = event.target.dataset.name
+    console.log('hhhhh',label)
+    // addData(ChartCustom, dataChartNames, data,label);
+    // addData(ChartCustom ,dataChartNames,dataChartRecovered,label);
+    updateCategoryGraph(data,label)
+
+})
+
+//change graph type
+// chartTypeButtonsDiv.addEventListener('click',(event)=>{
+//
+//     changeGraphType(event.target.dataset.type)
+//
+// })
+
+function hideMap(){
+    worldMap.style.background='none'
+    worldMap.style.height=0
+}
+function showCategoryButtons() {
+    categoryButtonsDiv.style.display = 'flex'
+}
+// TODO:add loader spinner
+// TODO:disable buttons after press
+// TODO:make responsive
+// TODO:country graph
+// TODO:add select button
+// TODO:add comments
+// TODO:write readme.ms

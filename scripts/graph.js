@@ -1,88 +1,53 @@
-// import {dataCollected} from "./main.js";
+import {dataCollected,dataButtons,region,worldMap,categoryButtonsDiv} from "./main.js";
 const myChart = document.getElementById('chart').getContext('2d');
+
 let dataCart = []
-let dataChartNames = []
-let dataChartConfirmed = [];
-let dataChartCritical = [];
-let dataChartRecovered = [];
-let dataChartDeaths = [];
+export let dataChartNames = []
+export let dataChartConfirmed = [];
+export let dataChartCritical = [];
+export let dataChartRecovered = [];
+export let dataChartDeaths = [];
 
-
-//
 // Chart.defaults.global.defaultFontFamily='Lato';
 // Chart.defaults.global.defaultFontSize='Lato';
 // Chart.defaults.global.defaultFontColor='#777';
-
-//
-// let ChartCustom = new Chart(myChart,
-//     {
-//     type:'bar',
-//     data:{
-//         labels:[],
-//         datasets:[{
-//             label:[],
-//             data:[],
-//             backgroundColor:[
-//                 '#003f5c','#58508d','#bc5090','#ff6361','#ffa600',
-//             ],
-//             borderWidth:1,
-//             borderColor:'#777',
-//             hoverBorderWidth:3,
-//             hoverBorderColor:'red'
-//
-//         }]
-//     },
-//     options:{
-//         plugins:{
-//             title:{
-//                 display:true,
-//                 text:'Bla Bla',
-//                 font:{
-//                     size:35
-//                 }
-//             },
-//             legend:{
-//                 position:'right',
-//                 labels:{
-//                     fontColor:'black'
-//                 }
-//             }
-//         }
-//     }
-// })
 let data
-const config = {
-    type: "line",
-    data: data,
-    options: {
-        plugins: {
-            title: {
-                display: true,
-                text: "",
-                font: { size: 25 },
-            },
-        },
-        scales: {
-            x: {
-                stacked: false,
-                beginAtZero: true,
-                ticks: {
-                    autoSkip: false,
-                },
-            },
-        },
-    },
-};
+// const config = {
+//     type: "line",
+//     data: data,
+//     options: {
+//         plugins: {
+//             title: {
+//                 display: true,
+//                 text: "",
+//                 font: { size: 25 },
+//             },
+//         },
+//         scales: {
+//             x: {
+//                 stacked: false,
+//                 beginAtZero: true,
+//                 ticks: {
+//                     autoSkip: false,
+//                 },
+//             },
+//         },
+//     },
+// };
 
-let ChartCustom
-console.log('dd',ChartCustom)
+
+export let ChartCustom
+ //Create a new chart
  export function createChart() {
+    worldMap.classList.toggle('hide')
      if (ChartCustom) ChartCustom.destroy()
-
          ChartCustom = new Chart(myChart,
                  {
                  type: "bar",
-                 data: [],
+                 data: {
+                    labels:[],
+
+                 },
                  options: {
                      backgroundColor: ['#003f5c', '#58508d', '#bc5090', '#ff6361', '#ffa600',],
                      plugins: {
@@ -103,14 +68,11 @@ console.log('dd',ChartCustom)
                      },
                  },
              })
-
-
-
-
-
  }
-export function printData(data) {
 
+// update the global variables data and send them to addData function, and activate the function to create
+//the buttons for the individual countries.
+export function printData(data) {
     dataChartNames=[];
     dataChartConfirmed=[];
     dataChartCritical=[];
@@ -123,48 +85,86 @@ export function printData(data) {
         dataChartRecovered.push(country.data.data.latest_data.recovered)
         dataChartDeaths.push(country.data.data.latest_data.deaths)
     })
-    console.log('confi',dataChartNames)
-    // ChartCustom.data.labels.push(dataChartNames);
-    // // ChartCustom.data.datasets.forEach((dataset) => {
-    // // dataset.data.push(data));
-    // console.log(dataChartNames)
-    //     ChartCustom.update();
-    // return dataCart=data
+    // console.log('confi',dataChartNames)
 
-    // removeData()
-
-    addData(ChartCustom, dataChartNames, dataChartConfirmed)
+    addData(ChartCustom ,dataChartNames,dataChartConfirmed,'Confirmed Cases')
+    injectButtons()
 }
 
+//destroy the chart to update it
 export function removeData() {
     ChartCustom.destroy()
-    // chart.data.labels=[];
-    // // chart.data.datasets.forEach((dataset) => {
-    // //     dataset.data.pop();
-    // // });
-    // chart.data.datasets = []
-    // chart.update();
-
 
 }
-function addData(chart, names, data) {
-
-    console.log(names)
+//Add new data to the chart
+export function addData(chart,names, data,label) {
+    // console.log(names);
     chart.data.labels=names;
-    chart.data.label=names
-    // chart.data.labels.forEach((dataset) => {
-    //     label.data.push(data);
-    // });
-    // chart.data.datasets.forEach((dataset) => {
-    //     dataset.data.push(data);
-    // });
-    chart.data.datasets.push({data})
-    // chart.data.datasets = data
-    // removeData(ChartCustom)
+    // chart.data.label.push(['hh']);
+    // console.log('region',region);
+    chart.options.plugins.title.text ='Covid in '+capatilize(region);
+    chart.data.datasets.push({data});
+    chart.data.datasets.label=[];
+    chart.data.datasets[0].label=[label];
     chart.update();
 
 }
 
+export function updateCategoryGraph(data,label) {
+    removeData()
+    createChart()
+    const expr = data;
+    switch (expr) {
+        case 'dataChartCritical':
+            data=dataChartCritical
+            break;
+        case 'dataChartRecovered':
+            data=dataChartRecovered
+            break;
+        case 'dataChartDeaths':
+            data=dataChartDeaths;
+            break;
+        case 'dataChartConfirmed':
+            data=dataChartConfirmed;
+            break;
+        default:
+            data=dataChartConfirmed;
+    }
+    addData(ChartCustom ,dataChartNames,data,label)
+}
+
+function injectButtons(){
+    dataButtons.innerHTML='';
+    dataChartNames.forEach(name=>{
+        dataButtons.innerHTML+=(`<button class="button-name" data-button="${name}">${name}</button>`)
+    })
+
+}
+
+export function changeGraphType(type){
+
+
+    let newChart =[ChartCustom,dataChartNames,ChartCustom.data,ChartCustom.data.datasets.label]
+    removeData();
+    createChart()
+    addData(newChart)
+    ChartCustom= newChart
+    ChartCustom.type = type;
+    ChartCustom.update();
+}
+
+
+function capatilize(str) {
+    return str.toUpperCase().substr(0,1)+str.substr(1);
+}
+
+
+//
+// categoryButtonsDiv.addEventListener('click',(event)=>{
+//     console.log('hhhhh',event.target)
+//     dataChartRecovered
+//     addData(chart, names, dataChartRecovered,'Recovered')
+// })
 //
 // #003f5c
 // #58508d
