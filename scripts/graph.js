@@ -7,6 +7,7 @@ export let dataChartConfirmed = [];
 export let dataChartCritical = [];
 export let dataChartRecovered = [];
 export let dataChartDeaths = [];
+export let  currentChartType = 'bar'
 
 // Chart.defaults.global.defaultFontFamily='Lato';
 // Chart.defaults.global.defaultFontSize='Lato';
@@ -43,7 +44,7 @@ export let ChartCustom
      if (ChartCustom) ChartCustom.destroy()
          ChartCustom = new Chart(myChart,
                  {
-                 type: "bar",
+                 type: currentChartType,
                  data: {
                     labels:[],
 
@@ -159,13 +160,30 @@ function injectButtons(){
 
 //change the graph type -
 export function changeGraphType(type){
-    let newChart =[ChartCustom,dataChartNames,ChartCustom.data,ChartCustom.data.datasets.label]
-    removeData();
-    createChart()
-    addData(newChart)
-    ChartCustom= newChart
-    ChartCustom.type = type;
-    ChartCustom.update();
+    // let newChart = ChartCustom.data
+    // removeData();
+    // ChartCustom = new Chart(myChart,{
+    //     type:type,
+    //     data:newChart
+    //
+        currentChartType = type;
+        let newChartData = ChartCustom.data;
+        let newChartOptions = ChartCustom.options;
+        let newChartScales = ChartCustom.scales;
+        ChartCustom.destroy();
+        ChartCustom = new Chart(chart, {
+            type:type,
+            data: newChartData,
+            options:newChartOptions,
+            scales:newChartScales
+        });
+         ChartCustom.update();
+    // }
+    // createChart()
+    // addData(newChart)
+    // ChartCustom= newChart
+
+    // ChartCustom.update();
 }
 
 //Capitilize a name

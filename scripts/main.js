@@ -81,6 +81,7 @@ export const chartTypeButtonsDiv = document.querySelector('.chart-type-buttons-d
 //Event listener for the region buttons, that start a chain of functions
 regionsButtons.addEventListener('click',(event)=> {
          region = event.target.dataset.region
+
         getContriesFromRegion(region)
             .then(data => arrangeCountries(data))
             .then(listOfCountries => getCovidDataCountriesPerRegion(listOfCountries))
@@ -119,11 +120,11 @@ categoryButtonsDiv.addEventListener('click',(event)=>{
 })
 
 //change graph type
-// chartTypeButtonsDiv.addEventListener('click',(event)=>{
-//
-//     changeGraphType(event.target.dataset.type)
-//
-// })
+chartTypeButtonsDiv.addEventListener('click',(event)=>{
+
+    changeGraphType(event.target.dataset.type)
+
+})
 
 //Function to hide the map
 function hideMap(){
