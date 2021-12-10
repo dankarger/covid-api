@@ -72,7 +72,9 @@ function arrangeData(data){
 const regionsButtons = document.querySelector('.regions-buttons-div');
 export const countryButtons = document.querySelector('.countries-buttons');
 const allButtonsArray = document.querySelectorAll('button')
-export const worldMap = document.querySelector('.map-div');
+export const worldMapDiv = document.querySelector('.map-div');
+export const worldMap = document.querySelector('.map');
+
 export const chartTypeButtonsDiv = document.querySelector('.chart-type-buttons-div');
 
 // export const categoryButtonsDiv = document.querySelector('.category-buttons-div')
@@ -83,6 +85,7 @@ export const chartTypeButtonsDiv = document.querySelector('.chart-type-buttons-d
 regionsButtons.addEventListener('click',(event)=> {
          region = event.target.dataset.region;
         disableButtons(allButtonsArray)
+    worldMap.classList.add('zoom-map')
         getContriesFromRegion(region)
             .then(data => arrangeCountries(data))
             .then(listOfCountries => getCovidDataCountriesPerRegion(listOfCountries))
@@ -131,8 +134,9 @@ chartTypeButtonsDiv.addEventListener('click',(event)=>{
 
 //Function to hide the map
 function hideMap(){
-    worldMap.style.background='none'
-    worldMap.style.height=0
+    // worldMapDiv.style.background='none'
+    // worldMapDiv.style.height=0
+    worldMapDiv.classList.add('hide-map')
 }
 //Function that show the div of category buttons after the region select.
 function showCategoryButtons() {
@@ -150,10 +154,10 @@ function activateButtons(buttons){
         button.disabled = false;
     })
 }
+
+
 // TODO:add loader spinner
-// TODO:disable buttons after press
 // TODO:make responsive
-// TODO:country graph
 // TODO:add select button
 // TODO:add comments
 // TODO:write readme.ms
