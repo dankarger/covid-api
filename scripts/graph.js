@@ -1,4 +1,4 @@
-import {dataCollected,dataButtons,region,worldMap,categoryButtonsDiv} from "./main.js";
+import {dataCollected,countryButtons,region,worldMap,categoryButtonsDiv} from "./main.js";
 const myChart = document.getElementById('chart').getContext('2d');
 
 let dataCart = []
@@ -132,11 +132,25 @@ export function updateCategoryGraph(data,label) {
     addData(ChartCustom ,dataChartNames,data,label)
 }
 
+
+export function showCountryGraph(country){
+    const countryName=country.data.data.name;
+    const confirmed = country.data.data.latest_data.confirmed;
+    const critical = country.data.data.latest_data.critical;
+    const recovered = country.data.data.latest_data.recovered;
+    const deaths = country.data.data.latest_data.deaths;
+    const data =[confirmed,critical,recovered,deaths]
+    const names =['Confirmed','Critical','Recovered','Deaths']
+    removeData()
+    createChart()
+    addData(ChartCustom, names, data,countryName)
+}
+
 //Create the buttons depending on the countries region
 function injectButtons(){
-    dataButtons.innerHTML='';
+    countryButtons.innerHTML='';
     dataChartNames.forEach(name=>{
-        dataButtons.innerHTML+=(`<button class="button-name" data-button="${name}">${name}</button>`)
+        countryButtons.innerHTML+=(`<button class="button-name" data-button="${name}">${name}</button>`)
     })
 
 }

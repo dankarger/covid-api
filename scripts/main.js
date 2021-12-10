@@ -1,7 +1,7 @@
 import {
     ChartCustom, createChart, printData, removeData, addData, dataChartRecovered,
-    dataChartNames, dataChartDeaths, dataChartCritical, dataChartConfirmed, updateCategoryGraph,changeGraphType
-} from "./graph.js";
+    dataChartNames, dataChartDeaths, dataChartCritical, dataChartConfirmed, updateCategoryGraph,changeGraphType,
+    showCountryGraph } from "./graph.js";
 
 const PROXIE_URL = 'https://intense-mesa-62220.herokuapp.com/'
 const API1_URL = 'https://restcountries.herokuapp.com/api/v1/region/'
@@ -70,7 +70,7 @@ function arrangeData(data){
 
 
 const regionsButtons = document.querySelector('.regions-buttons-div');
-export const dataButtons = document.querySelector('.data-buttons');
+export const countryButtons = document.querySelector('.countries-buttons');
 export const worldMap = document.querySelector('.map-div');
 export const chartTypeButtonsDiv = document.querySelector('.chart-type-buttons-div');
 
@@ -89,15 +89,21 @@ regionsButtons.addEventListener('click',(event)=> {
             hideMap()
             showCategoryButtons()
              printData(dataCollected)
-            console.log(dataCollected)
+
             // console.log('ee', regionsList[1].data.data.latest_data)
         })
     }
 )
 
 //Event listener ?
-dataButtons.addEventListener('click',(event)=>{
-    console.log(event.target.dataset.button)
+countryButtons.addEventListener('click',(event)=>{
+    console.log('hi',event.target.dataset.button);
+    console.log('data-collect',dataCollected)
+    const result = dataCollected.find(obj => {
+        return obj.data.data.name === event.target.dataset.button;
+    })
+    console.log('result',result)
+    showCountryGraph(result)
 
 })
 
@@ -105,7 +111,7 @@ dataButtons.addEventListener('click',(event)=>{
 categoryButtonsDiv.addEventListener('click',(event)=>{
     let data = event.target.dataset.button
     let label = event.target.dataset.name
-    console.log('hhhhh',label)
+
     // addData(ChartCustom, dataChartNames, data,label);
     // addData(ChartCustom ,dataChartNames,dataChartRecovered,label);
     updateCategoryGraph(data,label)
