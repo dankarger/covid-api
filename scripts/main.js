@@ -71,6 +71,7 @@ function arrangeData(data){
 
 const regionsButtons = document.querySelector('.regions-buttons-div');
 export const countryButtons = document.querySelector('.countries-buttons');
+const allButtonsArray = document.querySelectorAll('button')
 export const worldMap = document.querySelector('.map-div');
 export const chartTypeButtonsDiv = document.querySelector('.chart-type-buttons-div');
 
@@ -80,8 +81,8 @@ export const chartTypeButtonsDiv = document.querySelector('.chart-type-buttons-d
 
 //Event listener for the region buttons, that start a chain of functions
 regionsButtons.addEventListener('click',(event)=> {
-         region = event.target.dataset.region
-
+         region = event.target.dataset.region;
+        disableButtons(allButtonsArray)
         getContriesFromRegion(region)
             .then(data => arrangeCountries(data))
             .then(listOfCountries => getCovidDataCountriesPerRegion(listOfCountries))
@@ -90,6 +91,8 @@ regionsButtons.addEventListener('click',(event)=> {
             hideMap()
             showCategoryButtons()
              printData(dataCollected)
+             activateButtons(allButtonsArray)
+            // chartTypeButtonsDiv.disable=false;
 
             // console.log('ee', regionsList[1].data.data.latest_data)
         })
@@ -134,6 +137,18 @@ function hideMap(){
 //Function that show the div of category buttons after the region select.
 function showCategoryButtons() {
     categoryButtonsDiv.style.display = 'flex'
+}
+
+//disable and activate buttons functions
+function disableButtons(buttons){
+        buttons.forEach(button=>{
+            button.disabled = true;
+        })
+}
+function activateButtons(buttons){
+    buttons.forEach(button=>{
+        button.disabled = false;
+    })
 }
 // TODO:add loader spinner
 // TODO:disable buttons after press
