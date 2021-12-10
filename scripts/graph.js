@@ -87,7 +87,7 @@ export function printData(data) {
     })
     // console.log('confi',dataChartNames)
 
-    addData(ChartCustom ,dataChartNames,dataChartConfirmed,'Confirmed Cases')
+    addData(ChartCustom ,dataChartNames,dataChartConfirmed,'Confirmed Cases',region)
     injectButtons()
 }
 
@@ -97,10 +97,10 @@ export function removeData() {
 
 }
 //Add new data to the chart
-export function addData(chart,names, data,label) {
+export function addData(chart,names, data,label,title) {
     // console.log(names);
     chart.data.labels=names;
-    chart.options.plugins.title.text ='Covid in '+capatilize(region);
+    chart.options.plugins.title.text ='Covid in '+capatilize(title);
     chart.data.datasets.push({data});
     chart.data.datasets.label=[];
     chart.data.datasets[0].label=[label];
@@ -129,7 +129,7 @@ export function updateCategoryGraph(data,label) {
         default:
             data=dataChartConfirmed;
     }
-    addData(ChartCustom ,dataChartNames,data,label)
+    addData(ChartCustom ,dataChartNames,data,label,region)
 }
 
 
@@ -143,7 +143,9 @@ export function showCountryGraph(country){
     const names =['Confirmed','Critical','Recovered','Deaths']
     removeData()
     createChart()
-    addData(ChartCustom, names, data,countryName)
+    ChartCustom.options.plugins.title.text ='Covid in '+countryName;
+    ChartCustom.update()
+    addData(ChartCustom, names, data,countryName,countryName)
 }
 
 //Create the buttons depending on the countries region
