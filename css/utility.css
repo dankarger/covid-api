@@ -32,4 +32,37 @@
     margin-top:1rem;
     margin-left:1rem;
     justify-content: space-evenly;
+    box-shadow: 1px 1px  20px rgba(128, 128, 128, 0.67);
+
+}
+
+button {
+    box-shadow: 1px 1px 5px rgba(128, 128, 128, 0.67);
+    border:grey solid 1px;
+    border-radius:2px;
+}
+button:hover {
+    background: rgba(255, 194, 0, 0.29);
+    text-shadow: 1px 1px #d7cece;
+    outline: none;
+    border:grey solid 1px;
+}
+
+button:active{
+    color: #726c6c;
+    background: rgba(243, 243, 91, 0.16);
+    outline: none;
+    border:grey solid 1px;
+}
+button:focus {
+    background: rgba(255, 194, 0, 0.29);
+    text-shadow: 1px 1px #d7cece;
+    outline: none;
+}
+
+.selected {
+    color: #726c6c;
+    background: rgba(243, 243, 91, 0.16);
+    outline: none;
+    border:grey solid 1px;
 }
