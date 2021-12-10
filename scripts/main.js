@@ -16,6 +16,7 @@ export let region =''
 let regionsList = []
 export let dataCollected = []
 
+//function to get the countries of a certain region from the country API
 async function getContriesFromRegion(region) {
     try {
         return await axios.get(PROXIE_URL+API1_URL+region,[
@@ -31,6 +32,7 @@ async function getContriesFromRegion(region) {
     }
 }
 
+//Function that arrange the countries codes
 function arrangeCountries(data) {
     let listOfCountries = []
     data.data.forEach(countrie => {
@@ -38,6 +40,8 @@ function arrangeCountries(data) {
     })
     return listOfCountries
 }
+
+//Function that iterate on the countries region and receive the data for each country(from getCovidDataPerCountry())
 async function getCovidDataCountriesPerRegion(region) {
         let result = []
         region.forEach(countrie => {
@@ -51,6 +55,7 @@ async function getCovidDataCountriesPerRegion(region) {
 // const results = await Promise.all(covidArr.map((p) => p.catch((e) => e)));
 // const validResults = results.filter((result) => !(result instanceof Error));
 
+//Get data from the covid API for a selected country
 async function getCovidDataPerCounrie(countrie) {
     try {
         return  await axios.get(PROXIE_URL + API2_URL + countrie);
@@ -63,6 +68,7 @@ function arrangeData(data){
     dataCollected= data
 }
 
+
 const regionsButtons = document.querySelector('.regions-buttons-div');
 export const dataButtons = document.querySelector('.data-buttons');
 export const worldMap = document.querySelector('.map-div');
@@ -70,7 +76,9 @@ export const chartTypeButtonsDiv = document.querySelector('.chart-type-buttons-d
 
 // export const categoryButtonsDiv = document.querySelector('.category-buttons-div')
 
+//EVENT LISTENERS
 
+//Event listener for the region buttons, that start a chain of functions
 regionsButtons.addEventListener('click',(event)=> {
          region = event.target.dataset.region
         getContriesFromRegion(region)
@@ -87,12 +95,13 @@ regionsButtons.addEventListener('click',(event)=> {
     }
 )
 
+//Event listener ?
 dataButtons.addEventListener('click',(event)=>{
     console.log(event.target.dataset.button)
 
 })
 
-
+// Event listener for the category buttons that update the chart.
 categoryButtonsDiv.addEventListener('click',(event)=>{
     let data = event.target.dataset.button
     let label = event.target.dataset.name
@@ -110,10 +119,12 @@ categoryButtonsDiv.addEventListener('click',(event)=>{
 //
 // })
 
+//Function to hide the map
 function hideMap(){
     worldMap.style.background='none'
     worldMap.style.height=0
 }
+//Function that show the div of category buttons after the region select.
 function showCategoryButtons() {
     categoryButtonsDiv.style.display = 'flex'
 }

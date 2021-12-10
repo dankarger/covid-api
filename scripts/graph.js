@@ -100,8 +100,6 @@ export function removeData() {
 export function addData(chart,names, data,label) {
     // console.log(names);
     chart.data.labels=names;
-    // chart.data.label.push(['hh']);
-    // console.log('region',region);
     chart.options.plugins.title.text ='Covid in '+capatilize(region);
     chart.data.datasets.push({data});
     chart.data.datasets.label=[];
@@ -110,6 +108,7 @@ export function addData(chart,names, data,label) {
 
 }
 
+//Update the graph depending on the subcategories
 export function updateCategoryGraph(data,label) {
     removeData()
     createChart()
@@ -133,6 +132,7 @@ export function updateCategoryGraph(data,label) {
     addData(ChartCustom ,dataChartNames,data,label)
 }
 
+//Create the buttons depending on the countries region
 function injectButtons(){
     dataButtons.innerHTML='';
     dataChartNames.forEach(name=>{
@@ -141,9 +141,8 @@ function injectButtons(){
 
 }
 
+//change the graph type -
 export function changeGraphType(type){
-
-
     let newChart =[ChartCustom,dataChartNames,ChartCustom.data,ChartCustom.data.datasets.label]
     removeData();
     createChart()
@@ -153,7 +152,7 @@ export function changeGraphType(type){
     ChartCustom.update();
 }
 
-
+//Capitilize a name
 function capatilize(str) {
     return str.toUpperCase().substr(0,1)+str.substr(1);
 }
