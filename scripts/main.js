@@ -1,7 +1,6 @@
 import {
-    ChartCustom, createChart, printData, removeData, addData, dataChartRecovered,
-    dataChartNames, dataChartDeaths, dataChartCritical, dataChartConfirmed, updateCategoryGraph, changeGraphType,
-    showCountryGraph,  hideCountryInfo } from "./graph.js";
+     createChart, printData, updateCategoryGraph,
+     showCountryGraph,  hideCountryInfo } from "./graph.js";
 import {selectedRegionButton} from "./ui.js";
 
 
@@ -61,8 +60,6 @@ async function getCovidDataCountriesPerRegion(region) {
        }
         return result
 }
-// const results = await Promise.all(covidArr.map((p) => p.catch((e) => e)));
-// const validResults = results.filter((result) => !(result instanceof Error));
 
 //Get data from the covid API for a selected country
 async function getCovidDataPerCounrie(countrie) {
@@ -101,7 +98,7 @@ regionsButtons.addEventListener('click',(event)=> {
              createChart()
              showCategoryButtons()
              hideCountryInfo()
-             setTimeout(hideMap,900)
+             setTimeout(hideMap,1200)
              printData(dataCollected)
              activateButtons(allButtonsArray)
              selectedRegionButton(event.target)
@@ -120,9 +117,6 @@ countryButtons.addEventListener('click',(event)=>{
     })
     console.log('result',result)
     showCountryGraph(result)
-
-
-
 })
 
 // Event listener for the category buttons that update the chart.
@@ -130,28 +124,13 @@ categoryButtonsDiv.addEventListener('click',(event)=>{
     if (event.target===categoryButtonsDiv) return
     let data = event.target.dataset.button
     let label = event.target.dataset.name
-
-    // addData(ChartCustom, dataChartNames, data,label);
-    // addData(ChartCustom ,dataChartNames,dataChartRecovered,label);
     updateCategoryGraph(data,label)
 
 })
 
-//change graph type
-// chartTypeButtonsDiv.addEventListener('click',(event)=>{
-//     if (!event.target.dataset) return
-//     changeGraphType(event.target.dataset.type)
-//
-// })
-//
-//
-
-
 //--------------------------------------------------
 //Function to hide the map
 function hideMap(){
-    // worldMapDiv.style.background='none'
-    // worldMapDiv.style.height=0
     worldMapDiv.classList.add('hide-map')
 }
 //Function that show the div of category buttons after the region select.
@@ -173,9 +152,3 @@ function activateButtons(buttons){
     })
 }
 
-
-// TODO:problem with addEventListener
-// TODO:make responsive
-// TODO:add select button
-// TODO:write readme.ms
-// TODO:add statistic of country

@@ -1,26 +1,13 @@
-html,body {
-
-
-}
 body {
     width:100vw;
     height:100vh;
     box-sizing: border-box;
-    /*color:var(--color-dark);*/
-
 }
 #main {
     padding:2rem;
-    /*background: var(--color-dark);*/
     background: whitesmoke;
-
-    /*background: var(--color-dark);*/
-
 }
-.main-header {
- /*background: #4545da;*/
- /*   color: whitesmoke;*/
-}
+
 .main-header span{
     color: var(--color-blue);
     font-size:1.5rem;
@@ -34,32 +21,33 @@ body {
     background: rgba(0, 0, 0, 0.52);
 
 }
+
 .country-info {
     display: flex;
     align-items: center;
     justify-content: space-around;
 }
+
 .country-info p{
     color: var(--color-blue2);
 
    font-weight: 100;
     letter-spacing: 1px;
 }
+
 .country-info p span{
     color:whitesmoke;
-
-
 }
+
 .map-div {
-    /*margin-top:1rem;*/
-    margin:1rem auto;
+    margin-top:1rem ;
+    margin-left:2%;
     position: absolute;
     overflow: hidden;
     width:90%;
     height:70vh;
     transition: 2s ease-in;
     z-index: 100;
-
 }
 
 .map{
@@ -67,7 +55,6 @@ body {
     height:100%;
     transition: 4s ease-in;
     background: url('../assets/images/world1.png') no-repeat center center/cover;
-    /*box-shadow: 1px 1px 20px grey;*/
 }
 
 .zoom-map {

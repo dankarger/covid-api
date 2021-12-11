@@ -1,43 +1,14 @@
-import {dataCollected,countryButtons,region,worldMap,categoryButtonsDiv} from "./main.js";
+import {countryButtons,region} from "./main.js";
 const myChart = document.getElementById('chart').getContext('2d');
 const countryInfo = document.querySelector('.country-info')
-const countryInfoDiv = document.querySelector('.country-info-div')
 
-let dataCart = []
+
 export let dataChartNames = []
 export let dataChartConfirmed = [];
 export let dataChartCritical = [];
 export let dataChartRecovered = [];
 export let dataChartDeaths = [];
 export let  currentChartType = 'bar'
-
-// Chart.defaults.global.defaultFontFamily='Lato';
-// Chart.defaults.global.defaultFontSize='Lato';
-// Chart.defaults.global.defaultFontColor='#777';
-let data
-// const config = {
-//     type: "line",
-//     data: data,
-//     options: {
-//         plugins: {
-//             title: {
-//                 display: true,
-//                 text: "",
-//                 font: { size: 25 },
-//             },
-//         },
-//         scales: {
-//             x: {
-//                 stacked: false,
-//                 beginAtZero: true,
-//                 ticks: {
-//                     autoSkip: false,
-//                 },
-//             },
-//         },
-//     },
-// };
-
 
 export let ChartCustom
  //Create a new chart
@@ -191,12 +162,6 @@ function injectButtons(){
 
 //change the graph type -
 export function changeGraphType(type){
-    // let newChart = ChartCustom.data
-    // removeData();
-    // ChartCustom = new Chart(myChart,{
-    //     type:type,
-    //     data:newChart
-    //
         currentChartType = type;
         let newChartData = ChartCustom.data;
         let newChartOptions = ChartCustom.options;
@@ -212,21 +177,8 @@ export function changeGraphType(type){
 
 }
 
-//Capitilize a name
+//Capitalize a name
 function capatilize(str) {
     return str.toUpperCase().substr(0,1)+str.substr(1);
 }
 
-
-//
-// categoryButtonsDiv.addEventListener('click',(event)=>{
-//     console.log('hhhhh',event.target)
-//     dataChartRecovered
-//     addData(chart, names, dataChartRecovered,'Recovered')
-// })
-//
-// #003f5c
-// #58508d
-// #bc5090
-// #ff6361
-// #ffa600
