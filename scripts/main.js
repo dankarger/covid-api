@@ -126,13 +126,13 @@ categoryButtonsDiv.addEventListener('click',(event)=>{
 })
 
 //change graph type
-chartTypeButtonsDiv.addEventListener('click',(event)=>{
-    if (!event.target.dataset) return
-    changeGraphType(event.target.dataset.type)
-
-})
-
-
+// chartTypeButtonsDiv.addEventListener('click',(event)=>{
+//     if (!event.target.dataset) return
+//     changeGraphType(event.target.dataset.type)
+//
+// })
+//
+//
 
 
 //--------------------------------------------------

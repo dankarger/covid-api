@@ -71,6 +71,9 @@ export let ChartCustom
                              beginAtZero: true,
                              ticks: {
                                  autoSkip: true,
+                                 callback: function(value){
+                                     return this.getLabelForValue(value).substr(0,15)
+                                 }
                              },
                              y: [{
                                  type: 'logarithmic',

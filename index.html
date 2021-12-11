@@ -29,11 +29,8 @@
     <div class="main-header flex">
         <h1>Covid Data - <span class="date"></span></h1>
     </div>
-<!--    <hr>-->
     <div class="main-">
         <div class="regions-buttons-div flex ">
-            <!--                        <button class="north-america" data-region="north_americas">North America</button>-->
-            <!--                        <button class="south-america" data-region="south americas">South America</button>-->
             <button class="regions-button americas" data-region="americas">Americas</button>
             <button class="regions-button europe" data-region="europe">Europe</button>
             <button class="regions-button africa" data-region="africa">Africa</button>
@@ -41,21 +38,19 @@
             <button class="regions-button oceania" data-region="oceania">Oceania</button>
 <!--            <button class="world" data-region="world">World</button>-->
         </div>
-<!--        <hr>-->
         <div class="category-buttons-div flex">
             <button class="category-button" data-button="dataChartConfirmed" data-name="Confirmed Cases">Confirmed Cases</button>
             <button class="category-button" data-button="dataChartCritical" data-name="Criticals">Critical</button>
             <button class="category-button" data-button="dataChartRecovered" data-name="Recovered">Recovered</button>
             <button class="category-button" data-button="dataChartDeaths" data-name="Deaths">Deaths</button>
         </div>
-<!--        <hr>-->
-        <div class="chart-type-buttons-div">
-            <button class="chart-type-button" data-type='doughnut'>Doughnut</button>
-            <button class="chart-type-button" data-type="bar" >Bar</button>
-            <button class="chart-type-button" data-type="line" >Line</button>
-            <button class="chart-type-button" data-type="pie" >Pie</button>
-            <button class="chart-type-button" data-type="polarArea" >PolarArea</button>
-        </div>
+<!--        <div class="chart-type-buttons-div">-->
+<!--            <button class="chart-type-button" data-type='doughnut'>Doughnut</button>-->
+<!--            <button class="chart-type-button" data-type="bar" >Bar</button>-->
+<!--            <button class="chart-type-button" data-type="line" >Line</button>-->
+<!--            <button class="chart-type-button" data-type="pie" >Pie</button>-->
+<!--            <button class="chart-type-button" data-type="polarArea" >PolarArea</button>-->
+<!--        </div>-->
         <div class="map-div">
             <div class="map"></div>
         </div>
@@ -78,16 +73,19 @@
 
     </div>
 </section>
-<!--<footer id="footer">-->
-<!--  <div class="footer-upper-div">-->
-<!--      <h3>Covid Data Site</h3>-->
-<!--  </div>-->
-<!--    <div class="footer-bottom-div">-->
-<!--        <p>Site Created by DK</p>-->
-<!--    </div>-->
-<!--    <div class="copy-right-div">-->
-<!--        <p>&copy;2021</p>-->
-<!--    </div>-->
-<!--</footer>-->
+
+<footer id="footer" class="">
+  <div class="footer-upper-div flex ">
+      <h4>Covid Data Site</h4>
+      <hr>
+  </div>
+    <div class="footer-bottom-div flex">
+        <p>Site Created by DK</p>
+    </div>
+
+        <p>Data from ABOUT-CORONA.NET API: </p>
+    <a href="https://about-corona.net/documentation" target="_blank"><p>https://about-corona.net/documentation</p></a>
+
+</footer>
 </body>
 </html>
