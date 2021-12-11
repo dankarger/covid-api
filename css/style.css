@@ -6,6 +6,7 @@ body {
     width:100vw;
     height:100vh;
     box-sizing: border-box;
+    color:var(--color-dark)
 
 }
 #main {
@@ -18,11 +19,15 @@ body {
  /*background: #4545da;*/
  /*   color: whitesmoke;*/
 }
+.main-header span{
+    color: var(--color-blue);
+    font-size:1.5rem;
+}
 
 .map-div {
     position: absolute;
     overflow: hidden;
-    width:100%;
+    width:90%;
     height:50vh;
     transition: 2s ease-in;
     z-index: 100;
@@ -41,7 +46,7 @@ body {
 
 }
 .hide-map {
-    /*display: none;*/
+    display: none;
     opacity: 0;
 
 }

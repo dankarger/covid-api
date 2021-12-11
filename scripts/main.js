@@ -3,6 +3,8 @@ import {
     dataChartNames, dataChartDeaths, dataChartCritical, dataChartConfirmed, updateCategoryGraph,changeGraphType,
     showCountryGraph } from "./graph.js";
 
+import {selectedRegionButton} from "./ui.js";
+
 const PROXIE_URL = 'https://intense-mesa-62220.herokuapp.com/'
 const API1_URL = 'https://restcountries.herokuapp.com/api/v1/region/'
 const API2_URL = 'https://corona-api.com/countries/'
@@ -75,7 +77,7 @@ const spinner = document.querySelector('.loader-spinner');
 
 //Event listener for the region buttons, that start a chain of functions
 regionsButtons.addEventListener('click',(event)=> {
-    if (!event.target.dataset) return
+    if (event.target===this) return
          region = event.target.dataset.region;
         disableButtons(allButtonsArray)
         worldMap.classList.add('zoom-map')
@@ -85,9 +87,10 @@ regionsButtons.addEventListener('click',(event)=> {
             .then(result => arrangeData(result)).then(() => {
              createChart()
              showCategoryButtons()
-             setTimeout(hideMap,300)
+             setTimeout(hideMap,900)
              printData(dataCollected)
              activateButtons(allButtonsArray)
+            selectedRegionButton(event.target)
 
         })
     }
@@ -95,7 +98,7 @@ regionsButtons.addEventListener('click',(event)=> {
 
 //Event listener
 countryButtons.addEventListener('click',(event)=>{
-    if (!event.target.dataset) return
+    if (event.target===this) return
     console.log('hi',event.target.dataset.button);
     console.log('data-collect',dataCollected)
     const result = dataCollected.find(obj => {
@@ -108,7 +111,7 @@ countryButtons.addEventListener('click',(event)=>{
 
 // Event listener for the category buttons that update the chart.
 categoryButtonsDiv.addEventListener('click',(event)=>{
-    if (!event.target.dataset) return
+    if (event.target===this) return
     let data = event.target.dataset.button
     let label = event.target.dataset.name
 
@@ -151,8 +154,11 @@ function activateButtons(buttons){
 }
 
 
-// TODO:add loader spinner
+
+
+
+// TODO:problem with addEventListener
 // TODO:make responsive
 // TODO:add select button
-// TODO:add comments
 // TODO:write readme.ms
+// TODO:add statistic of country

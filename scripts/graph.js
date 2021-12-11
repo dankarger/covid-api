@@ -50,21 +50,49 @@ export let ChartCustom
 
                  },
                  options: {
+                     responsive:true,
+                     maintainAspectRatio:false,
                      backgroundColor: ['#003f5c', '#58508d', '#bc5090', '#ff6361', '#ffa600',],
                      plugins: {
+
+
                          title: {
                              display: true,
                              text: "",
                              font: {size: 25},
                          },
+
                      },
                      scales: {
                          x: {
                              stacked: false,
                              beginAtZero: true,
                              ticks: {
-                                 autoSkip: false,
+                                 autoSkip: true,
                              },
+                             y: [{
+                                 type: 'logarithmic',
+                                 ticks: {
+                                         autoSkip: false,
+                                     },
+                                 stacked: false,
+
+                             }],
+                             // yAxes: [{
+                             //     type: 'logarithmic',
+                             //     ticks: {
+                             //         userCallback: (value, index) => {
+                             //             const remain = value / (Math.pow(10, Math.floor(Chart.helpers.log10(value))));
+                             //             if (remain == 1 || remain == 2 || remain == 5 || index == 0) {
+                             //                 return value.toLocaleString();
+                             //             }
+                             //             return '';
+                             //         }
+                             //     },
+                             //     gridLines: {
+                             //         display: false
+                             //     }
+                             // }],
                          },
                      },
                  },

@@ -2,8 +2,13 @@
     --color-dark:#2E2E2E;
     --color-dark2:#232323;
     --color-white:#ffffff;
+    --color-blue:#5b5ba2;
 }
 
+
+h1 {
+    color:var(--color-dark)
+}
 
 .hide {
     display: none;
@@ -20,8 +25,8 @@
     display: flex;
     justify-content: center;
     align-items: start;
-    flex-direction: column;
-    position: absolute;
+
+
     left:2rem
 
 }
@@ -44,6 +49,15 @@
     box-shadow: 1px 1px  20px rgba(128, 128, 128, 0.67);
 
 }
+
+
+
+.countries-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
 .buttons-div{
     margin-top:2rem;
 }
@@ -52,6 +66,7 @@ button {
     box-shadow: 1px 1px 5px rgba(128, 128, 128, 0.67);
     border:grey solid 1px;
     border-radius:2px;
+    white-space: nowrap;
 }
 button:hover {
     background: rgba(255, 194, 0, 0.29);
@@ -82,17 +97,17 @@ button:focus {
 .loader-spinner {
     opacity: 0;
     display: none;
-    width:10vw;
-    height:10vh;
+    width:5rem;
+    height:5rem;
     position: absolute;
     top:50%;
     left:50%;
     border: solid transparent 5px;
-    border-top:solid #4545da 5px;
+    border-top:solid #4545da 10px;
     border-radius:50%;
     transform: rotate(0);
     animation: loading-animation 1000ms 500ms infinite forwards ease-in-out;
-    background: url("../assets/images/corona_icon1.png") no-repeat center center/cover;
+    /*background: url("../assets/images/corona_icon1.png") no-repeat center center/cover;*/
 }
 
 .activate-spinner{
@@ -110,7 +125,10 @@ button:focus {
     /*    transform: rotate(180deg);*/
     /*}*/
     0% {
-        opacity: 1;
+        opacity: 0.8;
         transform: rotate(720deg);
+    }
+    100%{
+        opacity: 0.8;
     }
 }
