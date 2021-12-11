@@ -40,7 +40,7 @@ let data
 export let ChartCustom
  //Create a new chart
  export function createChart() {
-    worldMap.classList.toggle('hide')
+
      if (ChartCustom) ChartCustom.destroy()
          ChartCustom = new Chart(myChart,
                  {

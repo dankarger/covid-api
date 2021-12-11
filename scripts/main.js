@@ -25,7 +25,6 @@ async function getContriesFromRegion(region) {
             //     Accept: "application/json",
             // }
         ]);
-
     }
     catch(error) {
         console.log(error);
@@ -50,7 +49,6 @@ async function getCovidDataCountriesPerRegion(region) {
         result = await Promise.all(result)  // maybe fix
         regionsList = result
         return result
-
 }
 // const results = await Promise.all(covidArr.map((p) => p.catch((e) => e)));
 // const validResults = results.filter((result) => !(result instanceof Error));
@@ -63,19 +61,17 @@ async function getCovidDataPerCounrie(countrie) {
         console.log(error);
     }
 }
-
 function arrangeData(data){
     dataCollected= data
 }
-
 
 const regionsButtons = document.querySelector('.regions-buttons-div');
 export const countryButtons = document.querySelector('.countries-buttons');
 const allButtonsArray = document.querySelectorAll('button')
 export const worldMapDiv = document.querySelector('.map-div');
 export const worldMap = document.querySelector('.map');
-
 export const chartTypeButtonsDiv = document.querySelector('.chart-type-buttons-div');
+const spinner = document.querySelector('.loader-spinner');
 
 // export const categoryButtonsDiv = document.querySelector('.category-buttons-div')
 
@@ -83,27 +79,27 @@ export const chartTypeButtonsDiv = document.querySelector('.chart-type-buttons-d
 
 //Event listener for the region buttons, that start a chain of functions
 regionsButtons.addEventListener('click',(event)=> {
+    if (!event.target.dataset) return
          region = event.target.dataset.region;
         disableButtons(allButtonsArray)
-    worldMap.classList.add('zoom-map')
+        worldMap.classList.add('zoom-map')
         getContriesFromRegion(region)
             .then(data => arrangeCountries(data))
             .then(listOfCountries => getCovidDataCountriesPerRegion(listOfCountries))
             .then(result => arrangeData(result)).then(() => {
              createChart()
-            hideMap()
-            showCategoryButtons()
+             showCategoryButtons()
+             setTimeout(hideMap,300)
              printData(dataCollected)
              activateButtons(allButtonsArray)
-            // chartTypeButtonsDiv.disable=false;
 
-            // console.log('ee', regionsList[1].data.data.latest_data)
         })
     }
 )
 
 //Event listener ?
 countryButtons.addEventListener('click',(event)=>{
+    if (!event.target.dataset) return
     console.log('hi',event.target.dataset.button);
     console.log('data-collect',dataCollected)
     const result = dataCollected.find(obj => {
@@ -116,6 +112,7 @@ countryButtons.addEventListener('click',(event)=>{
 
 // Event listener for the category buttons that update the chart.
 categoryButtonsDiv.addEventListener('click',(event)=>{
+    if (!event.target.dataset) return
     let data = event.target.dataset.button
     let label = event.target.dataset.name
 
@@ -127,7 +124,7 @@ categoryButtonsDiv.addEventListener('click',(event)=>{
 
 //change graph type
 chartTypeButtonsDiv.addEventListener('click',(event)=>{
-
+    if (!event.target.dataset) return
     changeGraphType(event.target.dataset.type)
 
 })
@@ -145,11 +142,13 @@ function showCategoryButtons() {
 
 //disable and activate buttons functions
 function disableButtons(buttons){
+    spinner.classList.toggle('activate-spinner')
         buttons.forEach(button=>{
             button.disabled = true;
         })
 }
 function activateButtons(buttons){
+    spinner.classList.toggle('activate-spinner')
     buttons.forEach(button=>{
         button.disabled = false;
     })
