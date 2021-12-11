@@ -20,10 +20,6 @@ export let dataCollected = []
 async function getContriesFromRegion(region) {
     try {
         return await axios.get(PROXIE_URL+API1_URL+region,[
-            // {
-            //     headers:"Access-Control-Allow-Origin",
-            //     Accept: "application/json",
-            // }
         ]);
     }
     catch(error) {
@@ -75,7 +71,7 @@ const spinner = document.querySelector('.loader-spinner');
 
 // export const categoryButtonsDiv = document.querySelector('.category-buttons-div')
 
-//EVENT LISTENERS
+//-----------EVENT LISTENERS---------------
 
 //Event listener for the region buttons, that start a chain of functions
 regionsButtons.addEventListener('click',(event)=> {
@@ -97,7 +93,7 @@ regionsButtons.addEventListener('click',(event)=> {
     }
 )
 
-//Event listener ?
+//Event listener
 countryButtons.addEventListener('click',(event)=>{
     if (!event.target.dataset) return
     console.log('hi',event.target.dataset.button);
