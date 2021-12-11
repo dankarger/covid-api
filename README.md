@@ -1,4 +1,4 @@
-# Covid API
+# Covid Information Site
 
 ## Working with API'S and Chart.js
 
