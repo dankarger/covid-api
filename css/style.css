@@ -51,10 +51,12 @@ body {
 
 }
 .map-div {
+    /*margin-top:1rem;*/
+    margin:1rem auto;
     position: absolute;
     overflow: hidden;
     width:90%;
-    height:50vh;
+    height:70vh;
     transition: 2s ease-in;
     z-index: 100;
 

@@ -42,8 +42,7 @@ let data
 export let ChartCustom
  //Create a new chart
  export function createChart() {
-
-     if (ChartCustom) ChartCustom.destroy()
+     if (ChartCustom) ChartCustom.destroy();
          ChartCustom = new Chart(myChart,
                  {
                  type: currentChartType,
@@ -210,12 +209,7 @@ export function changeGraphType(type){
             scales:newChartScales
         });
          ChartCustom.update();
-    // }
-    // createChart()
-    // addData(newChart)
-    // ChartCustom= newChart
 
-    // ChartCustom.update();
 }
 
 //Capitilize a name
