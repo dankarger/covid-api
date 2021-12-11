@@ -1,10 +1,9 @@
 import {
     ChartCustom, createChart, printData, removeData, addData, dataChartRecovered,
     dataChartNames, dataChartDeaths, dataChartCritical, dataChartConfirmed, updateCategoryGraph, changeGraphType,
-    showCountryGraph,  hideCountryInfo,
-} from "./graph.js";
-
+    showCountryGraph,  hideCountryInfo } from "./graph.js";
 import {selectedRegionButton} from "./ui.js";
+
 
 const PROXIE_URL = 'https://intense-mesa-62220.herokuapp.com/'
 const API1_URL = 'https://restcountries.herokuapp.com/api/v1/region/'
@@ -12,18 +11,26 @@ const API2_URL = 'https://corona-api.com/countries/'
 export const currentDate = "("+new Date().toDateString()+")"
 export const categoryButtonsDiv = document.querySelector('.category-buttons-div')
 
+let regionsCoronaDataArray ={}
+let regionsListCountries= {}
+
 const dateObject = document.querySelector('.date');
 dateObject.textContent = currentDate
 
 export let region =''
-let regionsList = []
+let regionsList = {}
 export let dataCollected = []
 
 //function to get the countries of a certain region from the country API
-async function getContriesFromRegion(region) {
+async function getCountriesFromRegion(region) {
     try {
-        return await axios.get(PROXIE_URL+API1_URL+region,[
-        ]);
+        if(regionsListCountries[region]){
+        return regionsListCountries[region]}
+            else {
+            const currentRegion= await axios.get(PROXIE_URL+API1_URL+region);
+            regionsListCountries[region] = currentRegion;
+            return currentRegion
+        }
     }
     catch(error) {
         console.log(error);
@@ -42,11 +49,16 @@ function arrangeCountries(data) {
 //Function that iterate on the countries region and receive the data for each country(from getCovidDataPerCountry())
 async function getCovidDataCountriesPerRegion(region) {
         let result = []
-        region.forEach(countrie => {
-            result.push(getCovidDataPerCounrie(countrie))
-        })
-        result = await Promise.all(result)  // maybe fix
-        regionsList = result
+       if(regionsCoronaDataArray[region]){
+           return regionsCoronaDataArray[region];
+       }else {
+           region.forEach(countrie => {
+               result.push(getCovidDataPerCounrie(countrie))
+           })
+           result = await Promise.all(result)  // maybe fix
+           regionsList = result
+           regionsCoronaDataArray[region]= result
+       }
         return result
 }
 // const results = await Promise.all(covidArr.map((p) => p.catch((e) => e)));
@@ -82,7 +94,7 @@ regionsButtons.addEventListener('click',(event)=> {
          region = event.target.dataset.region;
         disableButtons(allButtonsArray)
         worldMap.classList.add('zoom-map')
-        getContriesFromRegion(region)
+        getCountriesFromRegion(region)
             .then(data => arrangeCountries(data))
             .then(listOfCountries => getCovidDataCountriesPerRegion(listOfCountries))
             .then(result => arrangeData(result)).then(() => {
