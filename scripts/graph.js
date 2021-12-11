@@ -1,5 +1,7 @@
 import {dataCollected,countryButtons,region,worldMap,categoryButtonsDiv} from "./main.js";
 const myChart = document.getElementById('chart').getContext('2d');
+const countryInfo = document.querySelector('.country-info')
+const countryInfoDiv = document.querySelector('.country-info-div')
 
 let dataCart = []
 export let dataChartNames = []
@@ -175,7 +177,27 @@ export function showCountryGraph(country){
     ChartCustom.options.plugins.title.text ='Covid in '+countryName;
     ChartCustom.update()
     addData(ChartCustom, names, data,countryName,countryName)
+    showCountryInfo(countryName,confirmed,critical,recovered,deaths)
 }
+
+
+function showCountryInfo(countryName,confirmed,critical,recovered,deaths) {
+        countryInfo.classList.remove('hide')
+        countryInfo.innerHTML= '';
+        countryInfo.innerHTML =`
+            <p>Country: <span>${countryName}</span></p>
+            <p>Confirmed: <span>${confirmed}</span></p>
+            <p>Critical: <span>${critical}</span></p>
+            <p>Recovered: <span>${recovered}</span></p>
+            <p>Deaths: <span>${deaths}</span></p>
+        `
+}
+
+export function hideCountryInfo() {
+    countryInfo.classList.add('hide')
+
+}
+
 
 //Create the buttons depending on the countries region
 function injectButtons(){
@@ -183,7 +205,6 @@ function injectButtons(){
     dataChartNames.forEach(name=>{
         countryButtons.innerHTML+=(`<button class="button-name" data-button="${name}">${name}</button>`)
     })
-
 }
 
 //change the graph type -

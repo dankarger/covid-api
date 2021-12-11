@@ -6,13 +6,15 @@ body {
     width:100vw;
     height:100vh;
     box-sizing: border-box;
-    color:var(--color-dark)
+    /*color:var(--color-dark);*/
 
 }
 #main {
     padding:2rem;
     /*background: var(--color-dark);*/
     background: whitesmoke;
+
+    /*background: var(--color-dark);*/
 
 }
 .main-header {
@@ -24,6 +26,30 @@ body {
     font-size:1.5rem;
 }
 
+.country-info-div {
+    margin:0 auto;
+    flex-direction: row;
+    width:90%;
+    height:100%;
+    background: rgba(0, 0, 0, 0.52);
+
+}
+.country-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.country-info p{
+    color: #4dd7da;
+
+   font-weight: 100;
+    letter-spacing: 1px;
+}
+.country-info p span{
+    color:whitesmoke;
+
+
+}
 .map-div {
     position: absolute;
     overflow: hidden;
